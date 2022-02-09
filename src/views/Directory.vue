@@ -1,8 +1,8 @@
 <template>
   <div class="main-container">
-    <h2>Фильтр тегов</h2>
+    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : '']">Фильтр тегов</h2>
     <searcher @updateList="updateList"/>
-    <h2>Список всей теории</h2>
+    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : '']">Список всей теории</h2>
     <transition-group name="list">
       <div v-for="i in currentLessonList" class="lessons-container">
         <lesson-card @openLesson="openWindow" :card-index="i.id"/>
@@ -11,7 +11,7 @@
   </div>
   <lesson-window @closeLesson="closeWindow" :is-active="isLessonOpen" :lesson-number="selectedNumber"/>
   <div class="telegram-logo">
-    <strong>По всем вопросам писать в телеграм <a href="https://t.me/Can4k" target="_blank">@Can4k</a></strong>
+    <theme-button/>
   </div>
 </template>
 
@@ -19,10 +19,11 @@
 import LessonCard from "@/components/LessonCard";
 import LessonWindow from "@/components/lessonWindow";
 import Searcher from "@/components/Searcher";
+import ThemeButton from "@/components/ThemeButton";
 
 export default {
   name: "Directory",
-  components: {Searcher, LessonWindow, LessonCard},
+  components: {ThemeButton, Searcher, LessonWindow, LessonCard},
   methods: {
     openWindow(data) {
       this.selectedNumber = data.lessonIndex;
@@ -82,6 +83,11 @@ export default {
   font-size: 30px;
   text-align: center;
   margin: 20px;
+  user-select: none;
+}
+
+.main-container .dark-h2 {
+  color: #b0b7b6;
 }
 
 .lessons-container {
@@ -94,6 +100,7 @@ export default {
   top: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .telegram-logo img{
@@ -103,14 +110,24 @@ export default {
 .telegram-logo strong {
   font-family: 'Nunito', sans-serif;
   font-weight: 1000;
-  font-size: 15px;
+  font-size: 10px;
+  color: black;
+}
+
+.telegram-logo-dark {
+  color: #e1e8e7;
 }
 
 a:visited {
   text-decoration: none;
   color: #008cff;
 }
-
+.telegram-logo-dark strong{
+  color: white;
+}
+.telegram-logo-dark strong{
+  color: white;
+}
 a:hover {
   text-decoration: none;
   color: darkblue;

@@ -1,14 +1,14 @@
 <template>
   <transition name="fade">
-    <div v-show="isActive" class="lesson-window-content">
-      <div class="information-content">
+    <div v-show="isActive" :class="[this.$store.state.isDarkTheme? 'lesson-window-content-d' : 'lesson-window-content']" >
+      <div class="information-content" :class="[this.$store.state.isDarkTheme? 'information-content-d' : '']">
         <h2>{{currentObject.header}}</h2>
         <div v-for="i in currentObject.body">
           <b>{{i}}</b>
         </div>
         <footer>
           <div class="ok-button" @click="closeLesson">
-            <h3>ОК</h3>
+            <h3 :style="[this.$store.state.isDarkTheme? 'background-color: #04579b' : '']">ОК</h3>
           </div>
         </footer>
       </div>
@@ -48,8 +48,16 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 1;
-  transition-duration: 4s;
   background-color: #d8d8e1;
+}
+.lesson-window-content-d {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: #2a2a2c;
 }
 .fade-enter-active,
 .fade-leave-active {
@@ -69,6 +77,22 @@ export default {
   padding: 10px;
   font-family: 'Nunito', sans-serif;
   z-index: 2;
+}
+.information-content-d{
+  background-color: #394141;
+}
+.information-content-d b{
+  font-size: 13px;
+  color: #b0b7b6;
+}
+.information-content-d h2{
+  text-align: center;
+  margin-bottom: 5px;
+  color: #b0b7b6;
+}
+.information-content-d h2{
+  text-align: center;
+  margin-bottom: 5px;
 }
 .information-content h2 {
   text-align: center;
