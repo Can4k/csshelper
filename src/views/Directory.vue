@@ -8,11 +8,11 @@
     <div v-show="!currentLessonList.length" class="alert">
       <strong>нет подходящей теории</strong>
     </div>
-    <transition-group name="list">
-      <div v-for="i in currentLessonList" class="lessons-container">
-        <lesson-card @openLesson="openWindow" :card-index="i.id"/>
+      <div v-for="i of LessonList" class="lessons-container">
+        <transition name="fade">
+          <lesson-card v-show="this.currentLessonList.indexOf(i) !== -1" @openLesson="openWindow" :card-index="i.id"/>
+        </transition>
       </div>
-      </transition-group>
     </div>
   </div>
   <div class="telegram-logo">
@@ -31,6 +31,8 @@ export default {
   components: {ThemeButton, Searcher, LessonWindow, LessonCard},
   methods: {
     openWindow(data) {
+      console.log(this.currentLessonList);
+      console.log(this.LessonList);
       this.selectedNumber = data.lessonIndex;
       this.isLessonOpen = true;
       if (!this.$store.state.isDarkTheme) {
@@ -161,21 +163,20 @@ a {
   text-decoration: none;
   transition-duration: .2s;
 }
-
-.list-enter-active,
-.list-leave-active {
-  transition: all .2s;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-}
 .alert {
   font-family: 'Nunito', sans-serif;
   font-size: 10px;
   text-align: center;
   margin-top: -15px;
   color: red;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .2s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

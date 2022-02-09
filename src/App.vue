@@ -1,7 +1,5 @@
 <template>
-  <div>
     <router-view/>
-  </div>
 </template>
 
 <style>
@@ -12,7 +10,7 @@
 }
 *::-webkit-scrollbar {
   background-color: #e1e8e7;
-  width: 5px;
+  width: 0px;
 }
 *::-webkit-scrollbar-thumb {
   background-color: #42b983;
