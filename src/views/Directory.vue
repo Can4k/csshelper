@@ -1,8 +1,8 @@
 <template>
   <div class="main-container">
-    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : '']">Фильтр тегов</h2>
+    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Фильтр тегов</h2>
     <searcher @updateList="updateList"/>
-    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : '']">Список всей теории</h2>
+    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Список всей теории</h2>
     <transition-group name="list">
       <div v-for="i in currentLessonList" class="lessons-container">
         <lesson-card @openLesson="openWindow" :card-index="i.id"/>

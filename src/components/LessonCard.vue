@@ -45,8 +45,8 @@ export default {
   border-radius: 4px;
   padding: 4px;
   margin: 10px;
-  max-width: 370px;
-  min-width: 370px;
+  max-width: 340px;
+  min-width: 340px;
   transition-duration: .2s;
 }
 .lesson-card-light {
@@ -66,7 +66,7 @@ export default {
   cursor: pointer;
 }
 .lesson-card-default strong {
-  font-size: 17px;
+  font-size: 15px;
   font-family: 'Nunito', sans-serif;
   font-weight: 900;
   user-select: none;

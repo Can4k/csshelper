@@ -1,14 +1,14 @@
 <template>
   <transition name="fade">
     <div v-show="isActive" :class="[this.$store.state.isDarkTheme? 'lesson-window-content-d' : 'lesson-window-content']" >
-      <div class="information-content" :class="[this.$store.state.isDarkTheme? 'information-content-d' : '']">
+      <div :class="[this.$store.state.isDarkTheme? 'information-content-d' : 'information-content']">
         <h2>{{currentObject.header}}</h2>
         <div v-for="i in currentObject.body">
           <b>{{i}}</b>
         </div>
         <footer>
           <div class="ok-button" @click="closeLesson">
-            <h3 :style="[this.$store.state.isDarkTheme? 'background-color: #04579b' : '']">ОК</h3>
+            <h3 :style="[this.$store.state.isDarkTheme? 'background-color: #04579b' : 'background-color: #008cff']">ОК</h3>
           </div>
         </footer>
       </div>
@@ -78,22 +78,6 @@ export default {
   font-family: 'Nunito', sans-serif;
   z-index: 2;
 }
-.information-content-d{
-  background-color: #394141;
-}
-.information-content-d b{
-  font-size: 13px;
-  color: #b0b7b6;
-}
-.information-content-d h2{
-  text-align: center;
-  margin-bottom: 5px;
-  color: #b0b7b6;
-}
-.information-content-d h2{
-  text-align: center;
-  margin-bottom: 5px;
-}
 .information-content h2 {
   text-align: center;
   margin-bottom: 5px;
@@ -118,6 +102,30 @@ footer h3:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
+.information-content-d {
+  margin-top: 50px;
+  background-color: #3e4444;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 10px;
+  padding: 10px;
+  font-family: 'Nunito', sans-serif;
+  z-index: 2
+}
+.information-content-d h2 {
+  text-align: center;
+  margin-bottom: 5px;
+  color: #b0b7b6;
+}
+.information-content-d b {
+  font-size: 13px;
+  color: #b0b7b6;
+}
+.information-content-d footer {
+  display: flex;
+  justify-content: center;
+}
 @media screen and (max-width: 740px){
   .information-content {
     background-color: white;
@@ -125,6 +133,10 @@ footer h3:hover {
     padding: 10px;
     font-family: 'Nunito', sans-serif;
     z-index: 2;
+    max-width: 700px;
+    min-width: 370px;
+  }
+  .information-content-d {
     max-width: 700px;
     min-width: 370px;
   }

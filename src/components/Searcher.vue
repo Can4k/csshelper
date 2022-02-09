@@ -42,7 +42,7 @@ export default {
   }
 .searcher-container{
   display: flex;
-  width: 370px;
+  width: 340px;
   background-color: #e1e8e7;
   border-radius: 4px;
   margin: 0;
