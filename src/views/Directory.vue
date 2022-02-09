@@ -31,7 +31,7 @@ export default {
       this.selectedNumber = data.lessonIndex;
       this.isLessonOpen = true;
       if (!this.$store.state.isDarkTheme) {
-        document.body.style.backgroundColor = "grey";
+        document.body.style.backgroundColor = "lightgrey";
       }
     },
     closeWindow() {
@@ -63,7 +63,7 @@ export default {
     changeTheme(){
       this.$store.state.isDarkTheme = !this.$store.state.isDarkTheme;
       if (this.isLessonOpen) {
-        var color; this.$store.state.isDarkTheme? color = '#0b1117' : color = 'grey';
+        var color; this.$store.state.isDarkTheme? color = '#0b1117' : color = 'lightgrey';
         document.body.style.background = color;
       } else {
         var color; this.$store.state.isDarkTheme? color = '#0b1117' : color = 'white';

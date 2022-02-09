@@ -52,6 +52,8 @@ export default {
 }
 .filter-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .searcher-container h2{
   font-family: 'Nunito', sans-serif;

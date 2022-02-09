@@ -22,7 +22,7 @@ export default createStore({
                     "letter-spacing: - расстояния между символами;",
                     "word-spacing: - расстояние между словами;",
                     "white-space: nowrap; - весь текст в одну строку;",
-                    "line-height: - расстояние между строками;"
+                    "line-height: - расстояние между строками;",
                 ]
             },
             {

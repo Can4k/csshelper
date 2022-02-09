@@ -60,7 +60,7 @@ export default {
   border-radius: 10px;
   padding: 10px;
   font-family: 'Nunito', sans-serif;
-  z-index: 2
+  z-index: 2;
 }
 
 .information-content h2 {
@@ -101,7 +101,7 @@ footer h3:hover {
   border-radius: 10px;
   padding: 10px;
   font-family: 'Nunito', sans-serif;
-  z-index: 2
+  z-index: 2;
 }
 
 .information-content-d h2 {
