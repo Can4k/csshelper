@@ -11,9 +11,7 @@ export default {
   name: "ThemeButton",
   methods: {
     clicked() {
-      this.$store.state.isDarkTheme = !this.$store.state.isDarkTheme;
-      this.$store.state.isDarkTheme?
-          document.body.style.backgroundColor = "#121515" : document.body.style.backgroundColor = "white";
+      this.$emit("changeTheme");
     }
   }
 }

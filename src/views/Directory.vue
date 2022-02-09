@@ -1,17 +1,19 @@
 <template>
   <div class="main-container">
-    <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Фильтр тегов</h2>
+    <lesson-window @closeLesson="closeWindow" :is-active="isLessonOpen" :lesson-number="selectedNumber"/>
+    <div class="content-list" v-show="!this.isLessonOpen">
+      <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Фильтр тегов</h2>
     <searcher @updateList="updateList"/>
     <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Список всей теории</h2>
     <transition-group name="list">
       <div v-for="i in currentLessonList" class="lessons-container">
         <lesson-card @openLesson="openWindow" :card-index="i.id"/>
       </div>
-    </transition-group>
+      </transition-group>
+    </div>
   </div>
-  <lesson-window @closeLesson="closeWindow" :is-active="isLessonOpen" :lesson-number="selectedNumber"/>
   <div class="telegram-logo">
-    <theme-button/>
+    <theme-button @changeTheme="changeTheme"/>
   </div>
 </template>
 
@@ -28,9 +30,15 @@ export default {
     openWindow(data) {
       this.selectedNumber = data.lessonIndex;
       this.isLessonOpen = true;
+      if (!this.$store.state.isDarkTheme) {
+        document.body.style.backgroundColor = "grey";
+      }
     },
     closeWindow() {
       this.isLessonOpen = false;
+      if (!this.$store.state.isDarkTheme) {
+        document.body.style.backgroundColor = "white";
+      }
     },
     updateList() {
       this.currentTagsList = [];
@@ -51,6 +59,16 @@ export default {
         }
       }
       console.log(this.currentLessonList);
+    },
+    changeTheme(){
+      this.$store.state.isDarkTheme = !this.$store.state.isDarkTheme;
+      if (this.isLessonOpen) {
+        var color; this.$store.state.isDarkTheme? color = '#0b1117' : color = 'grey';
+        document.body.style.background = color;
+      } else {
+        var color; this.$store.state.isDarkTheme? color = '#0b1117' : color = 'white';
+        document.body.style.background = color;
+      }
     }
   },
   data() {
@@ -59,7 +77,7 @@ export default {
       selectedNumber: -1,
       currentLessonList: {},
       currentTagsList: [],
-      LessonList: {}
+      LessonList: {},
     }
   },
   mounted() {
@@ -94,7 +112,7 @@ export default {
   display: flex;
 }
 
-.telegram-logo{
+.telegram-logo {
   position: fixed;
   left: 4px;
   top: 4px;
@@ -103,7 +121,7 @@ export default {
   justify-content: center;
 }
 
-.telegram-logo img{
+.telegram-logo img {
   margin: 4px;
 }
 
@@ -122,18 +140,21 @@ a:visited {
   text-decoration: none;
   color: #008cff;
 }
-.telegram-logo-dark strong{
+
+.telegram-logo-dark strong {
   color: white;
 }
-.telegram-logo-dark strong{
+
+.telegram-logo-dark strong {
   color: white;
 }
+
 a:hover {
   text-decoration: none;
   color: darkblue;
 }
 
-a{
+a {
   text-decoration: none;
   transition-duration: .2s;
 }
@@ -142,6 +163,7 @@ a{
 .list-leave-active {
   transition: all .2s;
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
