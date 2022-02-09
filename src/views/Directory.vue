@@ -5,6 +5,9 @@
       <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Фильтр тегов</h2>
     <searcher @updateList="updateList"/>
     <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Список всей теории</h2>
+    <div v-show="!currentLessonList.length" class="alert">
+      <strong>нет подходящей теории</strong>
+    </div>
     <transition-group name="list">
       <div v-for="i in currentLessonList" class="lessons-container">
         <lesson-card @openLesson="openWindow" :card-index="i.id"/>
@@ -167,5 +170,12 @@ a {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
+}
+.alert {
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  text-align: center;
+  margin-top: -15px;
+  color: red;
 }
 </style>
