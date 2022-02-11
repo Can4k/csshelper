@@ -1,8 +1,8 @@
 <template>
   <span @click="clicked"
         class="theme-button-container" :class="[this.$store.state.isDarkTheme? 'dark' : 'white']">
-    <strong v-show="this.$store.state.isDarkTheme">LIGHT</strong>
-    <strong v-show="!this.$store.state.isDarkTheme">DARK</strong>
+    <strong v-show="this.$store.state.isDarkTheme">to light theme</strong>
+    <strong v-show="!this.$store.state.isDarkTheme">to dark theme</strong>
   </span>
 </template>
 
@@ -38,6 +38,11 @@ export default {
 .white {
   color: white;
   transition-duration: .4s;
-  box-shadow: 0 0 100px;
+}
+.dark:hover {
+  box-shadow: 0 0 10px white;
+}
+.white:hover {
+  box-shadow: 0 0 10px black;
 }
 </style>

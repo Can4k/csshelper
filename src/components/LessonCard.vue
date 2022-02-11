@@ -4,7 +4,7 @@
        @click="openLesson">
     <strong>{{currentObject.header}}</strong>
     <div class="lesson-card-body">
-      <span class="tag" v-for="tag in currentObject.tags">
+      <span class="tag" v-for="tag in currentObject.tags" :key="tag.name">
         <strong>{{tag}}</strong>
       </span>
     </div>
@@ -45,6 +45,7 @@ export default {
   border-radius: 4px;
   padding: 4px;
   margin: 10px;
+  max-width: 340px;
   max-width: 340px;
   min-width: 340px;
   transition-duration: .2s;

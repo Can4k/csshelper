@@ -2,7 +2,7 @@
   <div class="filter-container">
     <div class="searcher-container"
          :class="[this.$store.state.isDarkTheme? 'dark' : 'light']">
-    <span class="tag" v-for="tag in activeTags">
+    <span class="tag" v-for="tag in activeTags" :key="tag.name">
         <strong v-show="this.$store.state.isDarkTheme" :class="[tag.isActive? 'on-tag-d' : 'off-tag-d']" @click="log(tag)">{{tag.name}}</strong>
         <strong v-show="!this.$store.state.isDarkTheme" :class="[tag.isActive? 'on-tag' : 'off-tag']" @click="log(tag)">{{tag.name}}</strong>
     </span>
@@ -83,5 +83,11 @@ export default {
 }.on-tag-d {
   color: black;
   background-color: #42b983;
+ }
+ .close-button {
+   background-color: red;
+   height: 15px;
+   width: 15px;
+   border-radius: 5px;
  }
 </style>
