@@ -1,22 +1,28 @@
 <template>
   <div class="main-container">
     <transition :name="this.$store.state.deviceWidth > 700? 'alert' : 'alert-smart'">
-      <alert-component v-show="this.$store.state.isAdminOpen" text="Добавлять посты может только админ" type="warn"/>
+      <alert-component v-show="isAdminWarnOpen" text="Добавлять посты может только админ" type="warn"/>
     </transition>
     <lesson-window @closeLesson="closeWindow" :is-active="isLessonOpen" :lesson-number="selectedNumber"/>
-    <div class="content-list" v-show="!this.isLessonOpen">
+    <admin-window @closeWindow="closeAdmin"
+                  :change-obj="changeNumber"
+                  :is-active="this.isAdminWindowOpen"/>
+    <div class="content-list" v-show="!this.isLessonOpen && !this.isAdminWindowOpen">
       <h2 style="margin-top: 30px" :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Фильтр тегов</h2>
       <searcher @updateList="updateList"/>
       <div class="theory-header">
         <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Список всей теории</h2>
-        <span @click="openAdmin"><new-theory-button style="margin-top: 3px"/></span>
+        <span @click="openAdmin">
+          <new-theory-button style="margin-top: 3px"/>
+        </span>
       </div>
       <div v-show="!currentLessonList.length" class="alert">
         <strong>нет подходящей теории</strong>
       </div>
       <div v-for="i of this.$store.state.LessonsList" class="lessons-container" :key="i.id">
         <transition name="fade">
-          <lesson-card v-show="this.currentLessonList.indexOf(i) !== -1" @openLesson="openWindow" :card-index="i.id"/>
+          <lesson-card v-show="this.currentLessonList.indexOf(i) !== -1" @changeLesson="changeLesson"
+                       @openLesson="openWindow" :card-index="i.id"/>
         </transition>
       </div>
     </div>
@@ -33,11 +39,12 @@ import Searcher from "@/components/Searcher";
 import ThemeButton from "@/components/ThemeButton";
 import NewTheoryButton from "@/components/NewTheoryButton";
 import AlertComponent from "@/components/AlertComponent";
+import AdminWindow from "@/components/AdminWindow";
 
 
 export default {
   name: "Directory",
-  components: {AlertComponent, NewTheoryButton, ThemeButton, Searcher, LessonWindow, LessonCard},
+  components: {AdminWindow, AlertComponent, NewTheoryButton, ThemeButton, Searcher, LessonWindow, LessonCard},
   methods: {
     openWindow(data) {
       //console.log(this.currentLessonList);
@@ -76,7 +83,7 @@ export default {
     },
     changeTheme() {
       this.$store.state.isDarkTheme = !this.$store.state.isDarkTheme;
-      if (this.isLessonOpen) {
+      if (this.isLessonOpen || this.isAdminWindowOpen) {
         var color;
         this.$store.state.isDarkTheme ? color = '#0b1117' : color = 'lightgrey';
         document.body.style.background = color;
@@ -87,13 +94,37 @@ export default {
       }
     },
     openAdmin() {
-      if (this.$store.state.isAdminOpen) {
+      this.changeNumber = {
+        body: [],
+        header: ""
+      };
+      if (!this.$store.state.isDarkTheme) {
+        document.body.style.backgroundColor = "lightgrey";
+      }
+      this.isAdminWindowOpen = true;
+    },
+    closeAdmin() {
+      this.updateList();
+      if (!this.$store.state.isDarkTheme) {
+        document.body.style.backgroundColor = "white";
+      }
+      this.isAdminWindowOpen = false;
+    },
+    warnAdmin() {
+      if (this.isAdminWarnOpen) {
         return;
       }
-      this.$store.state.isAdminOpen = true;
+      this.isAdminWarnOpen = true;
       setTimeout(() => {
-        this.$store.state.isAdminOpen = false;
+        this.isAdminWarnOpen = false;
       }, 2000)
+    },
+    changeLesson(data) {
+      if (!this.$store.state.isDarkTheme) {
+        document.body.style.backgroundColor = "lightgrey";
+      }
+      this.changeNumber = this.$store.state.LessonsList[data.id];
+      this.isAdminWindowOpen = true;
     },
     async getRequest() {
       if (this.$store.state.isProduction) {
@@ -104,7 +135,8 @@ export default {
         this.updateList();
       } else {
         this.$store.state.LessonsList = [
-          {id: 0,
+          {
+            id: 0,
             header: "Стили для работы с текстовой информацией",
             tags: ["CSS", "Текст", "HTML", "База", "Позиционирование"],
             body: [
@@ -226,8 +258,10 @@ export default {
   data() {
     return {
       isLessonOpen: false,
-      isAdminOpen: false,
+      isAdminWarnOpen: false,
+      isAdminWindowOpen: false,
       selectedNumber: -1,
+      changeNumber: {},
       currentLessonList: {},
       currentTagsList: [],
     }
@@ -264,7 +298,7 @@ export default {
   display: flex;
 }
 
-.theory-header{
+.theory-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,21 +368,27 @@ a {
 .fade-leave-to {
   opacity: 0;
 }
+
 .alert-enter-to {
   top: 10px;
 }
+
 .alert-enter-from {
   top: -50px;
 }
+
 .alert-leave-to {
   margin-top: -50px;
 }
+
 .alert-smart-enter-to {
   top: 5px;
 }
+
 .alert-smart-enter-from {
   top: -20px;
 }
+
 .alert-smart-leave-to {
   margin-top: -30px;
 }

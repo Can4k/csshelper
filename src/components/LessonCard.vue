@@ -7,10 +7,13 @@
       <span class="tag" v-for="tag in currentObject.tags" :key="tag.name">
         <strong>{{tag}}</strong>
       </span>
+      <div class="tag" @click.stop="changeLesson">
+        <strong style="color: white; background-color: #3e4444">ИЗМЕНИТЬ ТЕГ</strong>
+      </div>
     </div>
   </div>
-</template>
 
+</template>
 <script>
 export default {
   name: "LessonCard",
@@ -34,6 +37,11 @@ export default {
       this.$emit("openLesson", {
         lessonIndex: this.cardIndex
       })
+    },
+    changeLesson() {
+      this.$emit("changeLesson", {
+        id: this.cardIndex
+      })
     }
   }
 }
@@ -45,7 +53,6 @@ export default {
   border-radius: 4px;
   padding: 4px;
   margin: 10px;
-  max-width: 340px;
   max-width: 340px;
   min-width: 340px;
   transition-duration: .2s;
@@ -67,7 +74,7 @@ export default {
   cursor: pointer;
 }
 .lesson-card-default strong {
-  font-size: 15px;
+  font-size: 16px;
   font-family: 'Nunito', sans-serif;
   font-weight: 900;
   user-select: none;
@@ -85,7 +92,25 @@ export default {
   margin: 1px 2px 1px 2px;
   transition-duration: 0s;
 }
+.tag-change {
+  transition-duration: 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tag-change strong {
+  font-family: 'Nunito', sans-serif;
+  font-size: 10px;
+  background-color: #42b983;
+  border-radius: 4px;
+  padding: 1px 2px 1px 2px;
+  transition-duration: 0s;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
 .lesson-card-body {
   display: flex;
+  align-items: center;
 }
 </style>

@@ -23,7 +23,7 @@ export default {
   background-color: #2a2a2c;
   color: white;
   font-family: 'Nunito', sans-serif;
-  font-size: 10px;
+  font-size: 13px;
   border-radius: 4px;
   margin: 2px;
   padding: 2px;
@@ -34,15 +34,11 @@ export default {
   background-color: #e1e8e7;
   color: black;
   transition-duration: .4s;
+  box-shadow: 0 0 7px white;
 }
 .white {
   color: white;
   transition-duration: .4s;
-}
-.dark:hover {
-  box-shadow: 0 0 10px white;
-}
-.white:hover {
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 7px black;
 }
 </style>

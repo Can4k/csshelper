@@ -1,5 +1,5 @@
 <template>
-  <div class="theme-button-container" @click="clicked()">
+  <div class="theme-button-container">
     <strong :class="[this.$store.state.isDarkTheme? 'b-d' : 'b-l']">+</strong>
   </div>
 </template>
@@ -16,9 +16,9 @@ export default {
 .theme-button-container strong{
   z-index: 3;
   font-family: 'Nunito', sans-serif;
-  font-size: 15px;
-  border-radius: 30px;
-  padding: 3px 9px 3px 9px;
+  font-size: 20px;
+  border-radius: 20px;
+  padding: 1px 8px 1px 8px;
   user-select: none;
   font-weight: 1000;
   cursor: pointer;
