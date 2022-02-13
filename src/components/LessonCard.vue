@@ -1,7 +1,5 @@
 <template>
-  <div class="lesson-card-default"
-       :class="[this.$store.state.isDarkTheme? 'lesson-card-dark' : 'lesson-card-light']"
-       @click="openLesson">
+  <div class="lesson-card-default" :class="[this.$store.state.isDarkTheme? 'dark' : 'light']" @click="openLesson">
     <strong>{{currentObject.header}}</strong>
     <div class="lesson-card-body">
       <span class="tag" v-for="tag in currentObject.tags" :key="tag.name">
@@ -57,19 +55,19 @@ export default {
   min-width: 340px;
   transition-duration: .2s;
 }
-.lesson-card-light {
+.light {
   background-color: #e1e8e7;
   color: black;
 }
-.lesson-card-dark {
+.dark {
   background-color: #292F2F;
   color: #b0b7b6;
 }
-.lesson-card-light:hover{
+.light:hover{
   background-color: #d8d8e1;
   cursor: pointer;
 }
-.lesson-card-dark:hover{
+.dark:hover{
   background-color: #5c6464;
   cursor: pointer;
 }

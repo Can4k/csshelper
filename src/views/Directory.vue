@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <transition :name="this.$store.state.deviceWidth > 700? 'alert' : 'alert-smart'">
-      <alert-component v-show="isAdminWarnOpen" text="Добавлять посты может только админ" type="warn"/>
+      <alert-window v-show="isAdminWarnOpen" text="Сценарий не обработан" type="warn"/>
     </transition>
     <lesson-window @closeLesson="closeWindow" :is-active="isLessonOpen" :lesson-number="selectedNumber"/>
     <admin-window @closeWindow="closeAdmin"
@@ -12,7 +12,7 @@
       <searcher @updateList="updateList"/>
       <div class="theory-header">
         <h2 :class="[this.$store.state.isDarkTheme? 'dark-h2' : 'aboba']">Список всей теории</h2>
-        <span @click="openAdmin">
+        <span @click="warnAdmin">
           <new-theory-button style="margin-top: 3px"/>
         </span>
       </div>
@@ -28,23 +28,24 @@
     </div>
   </div>
   <div class="telegram-logo">
-    <theme-button @changeTheme="changeTheme"/>
+    <change-theme-button @changeTheme="changeTheme"/>
   </div>
 </template>
 
 <script>
 import LessonCard from "@/components/LessonCard";
-import LessonWindow from "@/components/lessonWindow";
+import LessonWindow from "@/components/CustomWindows/lessonWindow";
 import Searcher from "@/components/Searcher";
-import ThemeButton from "@/components/ThemeButton";
-import NewTheoryButton from "@/components/NewTheoryButton";
-import AlertComponent from "@/components/AlertComponent";
-import AdminWindow from "@/components/AdminWindow";
+import ChangeThemeButton from "@/components/CustomButtons/ChangeThemeButton";
+import NewTheoryButton from "@/components/CustomButtons/NewTheoryButton";
+import AlertWindow from "@/components/CustomWindows/AlertWindow";
+import AdminWindow from "@/components/CustomWindows/AdminWindow";
 
 
 export default {
   name: "Directory",
-  components: {AdminWindow, AlertComponent, NewTheoryButton, ThemeButton, Searcher, LessonWindow, LessonCard},
+  components: {
+    ChangeThemeButton, AdminWindow, AlertWindow, NewTheoryButton, Searcher, LessonWindow, LessonCard},
   methods: {
     openWindow(data) {
       //console.log(this.currentLessonList);
@@ -382,7 +383,7 @@ a {
 }
 
 .alert-smart-enter-to {
-  top: 5px;
+  top: 0;
 }
 
 .alert-smart-enter-from {
